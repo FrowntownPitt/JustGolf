@@ -1,4 +1,6 @@
+#ifndef Arduino_H
 #include "Arduino.h"
+#endif
 #include "Stepper.h"
 
 Stepper::Stepper(int sPin, int dPin, int stepsPerRev, float rps, int dDefault=0){
