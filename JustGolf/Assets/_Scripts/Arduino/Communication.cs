@@ -18,32 +18,51 @@ namespace Arduino
         Coroutine listenerCoroutine;
         Coroutine resetCoroutine;
 
+        bool isConnected = false;
+
         public Dictionary<string, System.Action<string>> messageHandlers;
 
         public bool IsConnected()
         {
-            return ArduinoHandler.IsOpen();
+            if(ArduinoHandler != null)
+                return ArduinoHandler.IsOpen();
+
+            return false;
         }
 
         private void Start()
         {
             messageHandlers = new Dictionary<string, System.Action<string>>();
+            isConnected = false;
         }
 
         public void AddHandler(string token, System.Action<string> handler)
         {
+            Debug.Log("Added handler (" + token + ")");
             messageHandlers.Add(token, handler);
         }
 
         // Use this for initialization
         void OnEnable()
         {
-            ArduinoHandler = new USB(port);
+            //TryConnect(port);
+        }
 
+        public bool TryConnect(string port)
+        {
+            if (isConnected)
+                return true;
+
+            ArduinoHandler = new USB(port);
             ArduinoHandler.Open();
 
-            //StartCoroutine(TriggerCheck());
-            StartListener();
+            isConnected = ArduinoHandler.IsOpen();
+
+            Debug.Log(isConnected);
+            if(isConnected)
+                StartListener();
+
+            return isConnected;
         }
 
         IEnumerator TriggerCheck()
@@ -190,17 +209,29 @@ namespace Arduino
 
         void StartListener(float time = float.PositiveInfinity)
         {
-            Debug.Log("Starting Arduino Listener");
-            listenerCoroutine = StartCoroutine(ArduinoHandler.AsynchronousReadFromArduino(
-                (string s) => MessageHandler(s), () => ReadErrorHandler(), time));
+            if (ArduinoHandler != null)
+            {
+                Debug.Log("Starting Arduino Listener");
+                System.Action<string> M = (string s) => this.MessageHandler(s);
+                System.Action f = () => ReadErrorHandler();
+                
+                listenerCoroutine = StartCoroutine(ArduinoHandler.AsynchronousReadFromArduino(
+                    M, f, time));
+            } else
+            {
+                //Debug.Log("Arduino handler null");
+            }
         }
 
         public void WriteToArduino(string message, int priority = 0)
         {
             if (Time.time - prevTime > pulse || priority > 0)
             {
-                ArduinoHandler.WriteToArduino(message);
-                prevTime = Time.time + pulse;
+                if (ArduinoHandler != null)
+                {
+                    ArduinoHandler.WriteToArduino(message);
+                    prevTime = Time.time + pulse;
+                }
             }
         }
 

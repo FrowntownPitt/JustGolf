@@ -7,7 +7,7 @@
 #define STEPMAX 1600
 //384
 Stepper stepper = Stepper(7, 8, STEPMAX, 1, 1);
-Kicker kicker = Kicker(10, 180, 85, 1*1000000);
+Kicker kicker = Kicker(10, 180, 75, 1*1000000);
 Trigger trigger = Trigger(2, 3, (long)10000);
 
 SerialCommand sCmd;

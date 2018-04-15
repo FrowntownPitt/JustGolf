@@ -39,6 +39,8 @@ public class BallController : MonoBehaviour {
         isTurn = true;
         ballState = BallState.WAITTOSTART;
 
+        controller.TryReset();
+
         cameraman.gameObject.SetActive(true);
     }
 
@@ -52,16 +54,17 @@ public class BallController : MonoBehaviour {
 			indicators [i].GetComponent<MeshRenderer> ().enabled = false;
 		}
 
-        controller.AddHandler("TRIGGER", (string s) => HandleBallHit(s));
+        controller = GameManager.gameController;
+
+        //controller.AddHandler("TRIGGER", (string s) => HandleBallHit(s));
     }
 
     public float CalcPower(long time)
     {
         return mult * (Mathf.Exp(exp * time)) + offset;
     }
-
-
-    private void HandleBallHit(string message)
+    
+    public void HandleBallHit(string message)
     {
         string[] m = message.Split();
         string t = m[1];
@@ -78,9 +81,9 @@ public class BallController : MonoBehaviour {
             }
 
             ballState = BallState.MOVING;
-            cameraman.gameObject.SetActive(false);
+            //cameraman.gameObject.SetActive(false);
 
-            controller.TryReset();
+            //controller.TryReset();
         }
     }
 

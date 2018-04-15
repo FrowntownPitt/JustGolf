@@ -81,6 +81,7 @@ namespace Arduino
                 }
                 if (dataString != null)
                 {
+                    Debug.Log("Data string not null!");
                     callback(dataString);
                     yield return null;
                 }
@@ -95,6 +96,7 @@ namespace Arduino
 
             if (fail != null)
             {
+                Debug.Log("Fail!");
                 fail();
             }
             yield return null;

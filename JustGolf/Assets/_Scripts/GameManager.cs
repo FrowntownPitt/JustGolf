@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour {
 
     private int currentPlayer = 0;
     public List<BallController> Players;
+    
+    [SerializeField]
+    public static Arduino.Communication gameController;
+    public string controllerPort = "COM5";
 
     void Awake()
     {
@@ -20,6 +24,10 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         
         DontDestroyOnLoad(gameObject);
+
+        gameController = GetComponent<Arduino.Communication>();
+        //gameController = new Arduino.Communication();
+        //gameController.TryConnect(controllerPort);
     }
 
     private void Start()
@@ -27,6 +35,21 @@ public class GameManager : MonoBehaviour {
         camera.gameObject.SetActive(false);
         Players[currentPlayer].StartTurn();
 
+        Debug.Log(gameController.TryConnect(controllerPort));
+
+        gameController.AddHandler("TRIGGER", (string s) => HandleBallHit(s));
+
+        //System.Action<string> H = (string s) => this.HandleBallHit(s);
+
+        //H("Trigger 20000");
+
+    }
+
+    public void HandleBallHit(string message)
+    {
+        Players[currentPlayer].HandleBallHit(message);
+
+        //Debug.Log("Triggered!!!!");
     }
 
     public void EndTurn()
@@ -34,6 +57,15 @@ public class GameManager : MonoBehaviour {
         currentPlayer = (currentPlayer + 1) % Players.Count;
 
         Players[currentPlayer].StartTurn();
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Is connected: " + gameController.TryConnect(controllerPort));
+            gameController.AddHandler("Trigger", (string s) => HandleBallHit(s));
+        }
     }
 
 }
