@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 23972281029944802}
   - component: {fileID: 54405014350121374}
   - component: {fileID: 114807426329144858}
+  - component: {fileID: 114780472912241934}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Player
@@ -607,6 +608,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: bfed024f70cfc47f9a2036592912ff8c, type: 2}
+--- !u!114 &114780472912241934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218605514168346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6e1f7789d87914f9fdd9e37aaccdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: COM5
+  pulse: 0.05
 --- !u!114 &114807426329144858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -618,6 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4faee59c732c44708ffdfe71b932095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 114780472912241934}
   cameraman: {fileID: 4224208969073476}
   indicators:
   - {fileID: 1488481222541162}
@@ -625,7 +640,10 @@ MonoBehaviour:
   - {fileID: 1778523255353048}
   - {fileID: 1679202429622092}
   - {fileID: 1638246109364816}
-  MaxSpeed: 5
+  MaxSpeed: 17.77
+  mult: 118.768
+  exp: -0.00879889
+  offset: 10
 --- !u!114 &114937492767468706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -651,7 +669,7 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1218605514168346}
-  m_Material: {fileID: 13400000, guid: 9f93f63d068b08c459038c40fce897d8, type: 2}
+  m_Material: {fileID: 13400000, guid: f23911ab78e8eda48a4c1838342cd2b9, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

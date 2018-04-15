@@ -57,6 +57,8 @@ public class BallController : MonoBehaviour {
             if (useController) {
                 rb.AddForce(speed * cameraman.forward);
             }
+
+            controller.TryReset();
         }
     }
 
