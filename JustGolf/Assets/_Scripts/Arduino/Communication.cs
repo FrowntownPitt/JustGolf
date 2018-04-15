@@ -239,7 +239,8 @@ namespace Arduino
         {
             WriteToArduino("RESETSTEP", 1);
             WriteToArduino("RESETTRIGGER", 1);
-            ArduinoHandler.Close();
+            if(ArduinoHandler != null && !ArduinoHandler.IsOpen())
+                ArduinoHandler.Close();
         }
     }
 }
