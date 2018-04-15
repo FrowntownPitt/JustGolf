@@ -32,12 +32,12 @@ void Stepper::stepToTarget(){
   if(enabled && (currTime - prevTime) >= stepTime){
     int delta = angleTarget - angleCurrent;
 
-    if(delta > spr/2){
+    /*if(delta > spr/2){
       delta = -(spr-delta);
     }
     if(delta < -spr/2){
       delta = delta+spr;
-    }
+    }*/
 
     if(delta > 0){
       digitalWrite(dirPin, dirDefault);

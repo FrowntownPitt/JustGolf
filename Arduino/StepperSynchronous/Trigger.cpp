@@ -3,9 +3,11 @@
 #endif
 #include "Trigger.h"
 
-Trigger::Trigger(int top, int bot){
+Trigger::Trigger(int top, int bot, long debnc){
   pinTop = top;
   pinBot = bot;
+  debounce = debnc;
+  prevStateTime = micros();
 }
 
 void Trigger::enableInputs(){
@@ -16,20 +18,27 @@ void Trigger::enableInputs(){
 void Trigger::checkTriggers(){
   switch(state){
     case 0: // Base
-      if(digitalRead(pinTop) == LOW){
-        releaseTime = micros();
-        state = 1;
+      if(micros()-prevStateTime > debounce){
+        if(digitalRead(pinTop) == LOW){
+          releaseTime = micros();
+          state = 1;
+          prevStateTime = micros();
+        }
         break;
       }
+      break;
     case 1: // Falling
-      if(digitalRead(pinBot) == HIGH){
-        triggerTime = micros();
-        state = 2;
-        break;
-      }
-      if(digitalRead(pinTop) == HIGH){
-        state = 0; // Reset
-        break;
+      if(micros()-prevStateTime > debounce){
+        prevStateTime = micros();
+        if(digitalRead(pinBot) == HIGH){
+          triggerTime = micros();
+          state = 2;
+          break;
+        }
+        if(digitalRead(pinTop) == HIGH){
+          state = 0; // Reset
+          break;
+        }
       }
       break;
     case 2: // Triggered
@@ -52,6 +61,7 @@ void Trigger::resetTrigger(){
 }
 
 void Trigger::resetState(){
+  prevStateTime = micros();
   state = 0;
 }
 

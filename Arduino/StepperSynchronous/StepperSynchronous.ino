@@ -4,15 +4,17 @@
 #include "Kicker.h"
 #include "Trigger.h"
 
-#define STEPMAX 384
-Stepper stepper = Stepper(7, 8, STEPMAX, 4);
-Kicker kicker = Kicker(10, 0, 120, 1*1000000);
-Trigger trigger = Trigger(2, 3);
+#define STEPMAX 1600
+//384
+Stepper stepper = Stepper(7, 8, STEPMAX, 1, 1);
+Kicker kicker = Kicker(10, 180, 85, 1*1000000);
+Trigger trigger = Trigger(2, 3, (long)10000);
 
 SerialCommand sCmd;
 
 String inputString = "";
 int stringComplete = 0;
+char kickerState = 0;
 
 void setup() {
   //stepper = Stepper(3, 4, STEPMAX, 4);
@@ -46,6 +48,28 @@ void loop() {
   stepper.stepToTarget();
 
   kicker.tryReset();
+  
+  switch(kickerState){
+    case 0: // Resetting
+      trigger.resetTrigger();
+      trigger.resetState();
+      if(kicker.isReset){
+        kickerState = 1;
+      }
+      break;
+    case 1: // Done resetting (first time around)
+      trigger.resetTrigger();
+      trigger.resetState();
+      kickerState = 2;
+      break;
+    case 2: // Idling
+      if(kicker.reset){
+        kickerState = 0;
+      }
+      break;
+    default:
+    break;
+  }
 
   trigger.checkTriggers();
 
@@ -57,6 +81,7 @@ void loop() {
     kicker.isReset = 0;
   }
 
+  //Serial.print("Top/Bot: "); Serial.print(digitalRead(2)); Serial.println(digitalRead(3));
   //Serial.print("State: "); Serial.println(trigger.getState());
 }
 
@@ -71,9 +96,9 @@ void getTrigger(){
 }
 
 void resetTrigger(){
+  resetKicker();
   trigger.resetTrigger();
   trigger.resetState();
-  resetKicker();
 }
 
 void checkReset(){

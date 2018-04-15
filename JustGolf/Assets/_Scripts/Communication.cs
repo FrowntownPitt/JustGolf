@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Communication : MonoBehaviour {
 
+    public string port = "COM5";
     USB ArduinoHandler;
 
     float prevTime;
@@ -14,10 +15,14 @@ public class Communication : MonoBehaviour {
     Coroutine listenerCoroutine;
     Coroutine resetCoroutine;
 
+    public double mult = 118.768;
+    public double exp = -0.00879889;
+    public double offset = 10;
+
 
 	// Use this for initialization
 	void Start () {
-        ArduinoHandler = new USB();
+        ArduinoHandler = new USB(port);
 
         ArduinoHandler.Open();
 
@@ -36,6 +41,11 @@ public class Communication : MonoBehaviour {
         }
     }
 
+    public double CalcPower(long time)
+    {
+        return mult * (Mathf.Exp((float)exp * time)) + offset;
+    }
+
     void MessageHandler(string message)
     {
         Debug.Log("Message: " + message);
@@ -48,6 +58,8 @@ public class Communication : MonoBehaviour {
             if (valid)
             {
                 Debug.Log("Triggered: " + dur);
+                Debug.Log("Power: " + CalcPower(dur/1000) + "%");
+                
             }
             //if(resetCoroutine == null)
             //    resetCoroutine = StartCoroutine(HandleTrigger());

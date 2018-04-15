@@ -7,12 +7,16 @@ class Trigger {
   unsigned long releaseTime;
   unsigned long triggerTime;
 
+  long prevStateTime;
+
   int state;
 
   int triggered;
 
+  long debounce;
+
 public:
-  Trigger(int top, int bot);
+  Trigger(int top, int bot, long debnc);
 
   void enableInputs();
 

@@ -6,6 +6,12 @@ using System.IO.Ports;
 public class USB {
 
     public string port = "COM3";
+
+    public USB(string port)
+    {
+        this.port = port;
+    }
+
     public int baudrate = 115200;
 
     private SerialPort stream;
