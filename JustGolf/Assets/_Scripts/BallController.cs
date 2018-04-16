@@ -36,6 +36,9 @@ public class BallController : MonoBehaviour {
 
     private BallState ballState = BallState.WAITTOSTART;
 
+	public float hitStart = 0;
+	public float currentTime = Time.time;
+
     public void StartTurn()
     {
         isTurn = true;
@@ -83,6 +86,7 @@ public class BallController : MonoBehaviour {
             }
 
             ballState = BallState.MOVING;
+			hitStart = Time.time;
             //cameraman.gameObject.SetActive(false);
 
             //controller.TryReset();
@@ -91,7 +95,7 @@ public class BallController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		currentTime = Time.time;
         if (isTurn)
         {
             useController = controller.IsConnected();
@@ -108,9 +112,16 @@ public class BallController : MonoBehaviour {
             {
                 if(rb.velocity == Vector3.zero)
                 {
-                    ballState = BallState.STOPPED;
-                    cameraman.gameObject.SetActive(false);
-                    GameManager.instance.EndTurn();
+					//Debug.Log ("Checking");
+					//Debug.Log ("Start Time: " + hitStart);
+					//Debug.Log("Current Time: " + currentTime);
+					if (currentTime - hitStart > 3) {
+						//Debug.Log ("Got it");
+						hitStart = float.MaxValue;
+						ballState = BallState.STOPPED;
+						cameraman.gameObject.SetActive (false);
+						GameManager.instance.EndTurn ();
+					}
                 }
             }
 
@@ -134,6 +145,7 @@ public class BallController : MonoBehaviour {
 
             if (Input.GetKeyUp(KeyCode.W) && ballState == BallState.WAITTOSTART && held)
             {
+				hitStart = currentTime;
                 rb.AddForce(500 * tm * cameraman.forward);
                 tm = 0;
                 held = false;
