@@ -38,12 +38,35 @@ public class GameManager : MonoBehaviour {
 
         gameController = GetComponent<Arduino.Communication>();
 
-
-        RemainingPlayers = new List<BallController>(Players.Count);
-        for (int i = 0; i < Players.Count; i++)
-            RemainingPlayers.Insert(i, Players[i]);
+        InitLevel();
         //gameController = new Arduino.Communication();
         //gameController.TryConnect(controllerPort);
+    }
+
+    private void InitLevel()
+    {
+        RemainingPlayers = new List<BallController>(Players.Count);
+        for (int i = 0; i < Players.Count; i++)
+        {
+            RemainingPlayers.Insert(i, Players[i]);
+            DontDestroyOnLoad(Players[i].gameObject.transform.root);
+        }
+    }
+
+    public void PlacePlayers(List<GameObject> locations)
+    {
+        for(int i=0; i<Players.Count; i++)
+        {
+            Transform t = Players[i].gameObject.transform.root;
+            Transform s = locations[i].transform;
+            t.position = s.position;
+            t.rotation = s.rotation;
+            t.localScale = s.localScale;
+            if (s.root != Players[i].gameObject.transform.root) Destroy(locations[i]);
+            else Debug.Log("First level!");
+        }
+
+        InitLevel();
     }
 
     private void StartLevel(int level)
@@ -121,8 +144,11 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("Is connected: " + gameController.TryConnect(controllerPort));
-            gameController.AddHandler("Trigger", (string s) => HandleBallHit(s));
+            currentLevel = (currentLevel + 1) % Levels.Count;
+            Debug.Log("Loading next level (" + currentLevel + ")...");
+            StartLevel(currentLevel);
+            //Debug.Log("Is connected: " + gameController.TryConnect(controllerPort));
+            //gameController.AddHandler("Trigger", (string s) => HandleBallHit(s));
         }
     }
 

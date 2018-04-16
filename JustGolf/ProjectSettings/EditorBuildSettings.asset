@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestSpace.unity
-    guid: 477acccd2ba0746f7884a084854fbf7a
+    path: Assets/Scenes/MainMenu.unity
+    guid: 4241a5ac4873c604d8601f6546db2488
   - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 1b752cfb867197846af59487c367ad83
+    path: Assets/Scenes/BasicHole.unity
+    guid: 9d96118d791333140a929a9c7a04006c
+  - enabled: 1
+    path: Assets/Scenes/Horror.unity
+    guid: 7a6a23bd7a38f8e42bdcf6de78b1f98e
