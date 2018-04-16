@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,12 +11,21 @@ public class GameManager : MonoBehaviour {
 
     public Camera camera;
 
+    private int currentActivePlayer = 0;
     private int currentPlayer = 0;
     public List<BallController> Players;
+    public List<BallController> RemainingPlayers;
+
+
+    public List<string> Levels;
+    public int currentLevel = 0;
     
     [SerializeField]
     public static Arduino.Communication gameController;
     public string controllerPort = "COM5";
+
+    public GameObject playerNotification;
+    public Text playerText;
 
     void Awake()
     {
@@ -26,14 +37,26 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         gameController = GetComponent<Arduino.Communication>();
+
+
+        RemainingPlayers = new List<BallController>(Players.Count);
+        for (int i = 0; i < Players.Count; i++)
+            RemainingPlayers.Insert(i, Players[i]);
         //gameController = new Arduino.Communication();
         //gameController.TryConnect(controllerPort);
+    }
+
+    private void StartLevel(int level)
+    {
+        SceneManager.LoadSceneAsync(Levels[level]);
+        //Application.LoadLevelAdditiveAsync(Levels[level]);
     }
 
     private void Start()
     {
         camera.gameObject.SetActive(false);
-        Players[currentPlayer].StartTurn();
+        StartNextTurn();
+        //Players[currentPlayer].StartTurn();
 
         Debug.Log(gameController.TryConnect(controllerPort));
 
@@ -47,16 +70,51 @@ public class GameManager : MonoBehaviour {
 
     public void HandleBallHit(string message)
     {
-        Players[currentPlayer].HandleBallHit(message);
+        RemainingPlayers[currentPlayer].HandleBallHit(message);
 
         //Debug.Log("Triggered!!!!");
     }
 
+    private void EndLevel()
+    {
+        StartLevel(++currentLevel);
+    }
+
     public void EndTurn()
     {
-        currentPlayer = (currentPlayer + 1) % Players.Count;
+        if (RemainingPlayers[currentPlayer].isFinished)
+        {
+            RemainingPlayers.RemoveAt(currentPlayer);
+            if (RemainingPlayers.Count == 0)
+            {
+                EndLevel();
+            }
+            else
+            {
+                currentPlayer %= RemainingPlayers.Count;
+            }
+        }
+        else {
+            currentPlayer = (currentPlayer + 1) % RemainingPlayers.Count;
+        }
 
-        Players[currentPlayer].StartTurn();
+        int cur = currentActivePlayer;
+        for (int i = (cur+1)%Players.Count; i != cur; i = (i + 1) % Players.Count)
+        {
+            if (Players[i].isFinished) break;
+            currentActivePlayer = (currentActivePlayer + 1) % Players.Count;
+        }
+
+        StartNextTurn();
+        //Players[currentPlayer].StartTurn();
+    }
+
+    private void StartNextTurn()
+    {
+        playerText.text = "Player " + (currentActivePlayer+1);
+        playerNotification.GetComponent<Animator>().Play("Fade Effect", -1, 0);
+
+        RemainingPlayers[currentPlayer].StartTurn();
     }
 
     public void Update()

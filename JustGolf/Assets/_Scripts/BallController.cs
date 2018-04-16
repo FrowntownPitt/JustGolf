@@ -25,6 +25,8 @@ public class BallController : MonoBehaviour {
 
     private bool isTurn = false;
 
+    public bool isFinished = false;
+
     private enum BallState
     {
         WAITTOSTART,
@@ -156,4 +158,12 @@ public class BallController : MonoBehaviour {
         }
 	}
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            isFinished = true;
+        }
+    }
 }
