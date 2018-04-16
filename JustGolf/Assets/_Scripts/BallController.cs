@@ -161,9 +161,11 @@ public class BallController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Finish"))
-        {
-            isFinished = true;
-        }
+		if (other.CompareTag ("Finish")) {
+			isFinished = true;
+		} else if (other.CompareTag ("Spider")) {
+			gameObject.transform.SetPositionAndRotation(GameObject.FindGameObjectWithTag ("Start").transform.position, gameObject.transform.rotation);
+			rb.velocity = new Vector3 (0, 0, 0);
+		}
     }
 }
