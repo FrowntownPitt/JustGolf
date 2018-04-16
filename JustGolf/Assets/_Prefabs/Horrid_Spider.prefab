@@ -80,10 +80,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4497059790699574}
   - component: {fileID: 111201010925982260}
-  - component: {fileID: 135757226634668956}
   m_Layer: 0
   m_Name: Horrid_Spider
-  m_TagString: Spider
+  m_TagString: SpiderMain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,10 +336,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4980051870939456}
   - component: {fileID: 137232014006565028}
-  - component: {fileID: 64675052904297270}
   m_Layer: 0
   m_Name: BadassSpider
-  m_TagString: Spider
+  m_TagString: SpiderSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -459,9 +457,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4184753097377280}
+  - component: {fileID: 136274388955559044}
   m_Layer: 0
   m_Name: Bone01
-  m_TagString: Untagged
+  m_TagString: Spider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1177,20 +1176,6 @@ Transform:
   m_Father: {fileID: 4916477505027202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &64675052904297270
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1481741118241566}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
 --- !u!64 &64678771964475624
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1226,28 +1211,29 @@ Animation:
   - {fileID: 7400018, guid: 4f5f4668e5e611a4e9d78f06d604aca8, type: 3}
   - {fileID: 7400020, guid: 4f5f4668e5e611a4e9d78f06d604aca8, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 1
---- !u!135 &135757226634668956
-SphereCollider:
+--- !u!136 &136274388955559044
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1105072779251694}
+  m_GameObject: {fileID: 1742564598396104}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.43
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.11
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.33, z: 0.47}
 --- !u!137 &137232014006565028
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1481741118241566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
