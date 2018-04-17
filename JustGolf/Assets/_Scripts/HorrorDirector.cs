@@ -32,6 +32,7 @@ public class HorrorDirector : MonoBehaviour {
 	void Update(){
 		k++;
 		if (k > 100) {
+			k = 0;
 			if (started) {
 				for (int i = 0; i < spiders.Length; i++) {
 					if(Random.Range(0,7) == 5)

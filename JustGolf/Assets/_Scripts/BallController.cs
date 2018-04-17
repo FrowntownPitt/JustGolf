@@ -176,8 +176,14 @@ public class BallController : MonoBehaviour {
 		if (other.CompareTag ("Finish")) {
 			isFinished = true;
 		} else if (other.CompareTag ("Spider")) {
-			gameObject.transform.SetPositionAndRotation(GameObject.FindGameObjectWithTag ("Start").transform.position, gameObject.transform.rotation);
+			gameObject.transform.SetPositionAndRotation (GameObject.FindGameObjectWithTag ("Start").transform.position, gameObject.transform.rotation);
 			rb.velocity = new Vector3 (0, 0, 0);
+			hitStart = float.MaxValue;
+			ballState = BallState.STOPPED;
+			cameraman.gameObject.SetActive (false);
+			GameManager.instance.EndTurn ();
+		} else if (other.CompareTag ("Cow")) {
+			Destroy (other.gameObject);
 		}
     }
 }
