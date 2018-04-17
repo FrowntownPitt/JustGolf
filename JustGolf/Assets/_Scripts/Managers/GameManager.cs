@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-    private int level = 0;                                  //Current level number, expressed in game as "Day 1".
+    private int level = 1;                                  //Current level number, expressed in game as "Day 1".
 
     public Camera camera;
 
@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour {
 
 
     public List<string> Levels;
-    public int currentLevel = 0;
     
     [SerializeField]
     public static Arduino.Communication gameController;
@@ -35,6 +34,11 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         
         DontDestroyOnLoad(gameObject);
+        for (int i = 0; i < Players.Count; i++)
+        {
+            DontDestroyOnLoad(Players[i].gameObject.transform.root);
+            Players[i].score = 0;
+        }
 
         gameController = GetComponent<Arduino.Communication>();
 
@@ -43,14 +47,47 @@ public class GameManager : MonoBehaviour {
         //gameController.TryConnect(controllerPort);
     }
 
-    private void InitLevel()
+    public void DisablePlaying()
+    {
+        for(int i=0; i<Players.Count; i++)
+        {
+            Players[i].EndTurn();
+        }
+    }
+
+    public void EnablePlaying()
+    {
+
+    }
+
+    public void StartGame()
+    {
+        level = 1;
+        //StartLevel(level);
+    }
+
+    public void ResetGame()
+    {
+        for(int i=0; i<Players.Count; i++)
+        {
+            Players[i].ResetPlayer();
+        }
+    }
+
+    public void InitLevel()
     {
         RemainingPlayers = new List<BallController>(Players.Count);
         for (int i = 0; i < Players.Count; i++)
         {
             RemainingPlayers.Insert(i, Players[i]);
-            DontDestroyOnLoad(Players[i].gameObject.transform.root);
+            Players[i].isFinished = false;
+            Players[i].score = 0;
+            //DontDestroyOnLoad(Players[i].gameObject.transform.root);
         }
+        currentActivePlayer = 0;
+        currentPlayer = 0;
+
+        StartNextTurn();
     }
 
     public void PlacePlayers(List<GameObject> locations)
@@ -62,11 +99,26 @@ public class GameManager : MonoBehaviour {
             t.position = s.position;
             t.rotation = s.rotation;
             t.localScale = s.localScale;
+
+            t = t.GetChild(0);
+            s = s.GetChild(0);
+            t.position = s.position;
+            t.rotation = s.rotation;
+            t.localScale = s.localScale;
+
+            t = t.root.GetChild(1);
+            s = s.root.GetChild(1);
+            t.position = s.position;
+            t.rotation = s.rotation;
+            t.localScale = s.localScale;
+
             if (s.root != Players[i].gameObject.transform.root) Destroy(locations[i]);
-            else Debug.Log("First level!");
+            else Debug.Log("First level!" + level);
         }
 
-        InitLevel();
+        //InitLevel();
+
+        //StartNextTurn();
     }
 
     private void StartLevel(int level)
@@ -100,7 +152,7 @@ public class GameManager : MonoBehaviour {
 
     private void EndLevel()
     {
-        StartLevel(++currentLevel);
+        StartLevel(++level);
     }
 
     public void EndTurn()
@@ -111,6 +163,7 @@ public class GameManager : MonoBehaviour {
             if (RemainingPlayers.Count == 0)
             {
                 EndLevel();
+                return;
             }
             else
             {
@@ -144,9 +197,9 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            currentLevel = (currentLevel + 1) % Levels.Count;
-            Debug.Log("Loading next level (" + currentLevel + ")...");
-            StartLevel(currentLevel);
+            level = (level + 1) % Levels.Count;
+            Debug.Log("Loading next level (" + level + ")...");
+            StartLevel(level);
             //Debug.Log("Is connected: " + gameController.TryConnect(controllerPort));
             //gameController.AddHandler("Trigger", (string s) => HandleBallHit(s));
         }

@@ -16,6 +16,9 @@ public class BallController : MonoBehaviour {
 	float tm;
 	bool held;
 
+    public int score = 0;
+    public int cumulativeScore = 0;
+
 	public GameObject[] indicators;
 	public float MaxSpeed;
 
@@ -34,10 +37,21 @@ public class BallController : MonoBehaviour {
         STOPPED
     }
 
+    public void ResetPlayer()
+    {
+        score = 0;
+        cumulativeScore = 0;
+
+        isTurn = false;
+        isFinished = false;
+
+        ballState = BallState.WAITTOSTART;
+    }
+
     private BallState ballState = BallState.WAITTOSTART;
 
 	public float hitStart = 0;
-	public float currentTime = Time.time;
+    public float currentTime;// = Time.time;
 
     public void StartTurn()
     {
@@ -47,6 +61,14 @@ public class BallController : MonoBehaviour {
         controller.TryReset();
 
         cameraman.gameObject.SetActive(true);
+    }
+
+    public void EndTurn()
+    {
+        isTurn = false;
+        ballState = BallState.WAITTOSTART;
+
+        cameraman.gameObject.SetActive(false);
     }
 
     // Use this for initialization
@@ -60,6 +82,8 @@ public class BallController : MonoBehaviour {
 		}
 
         controller = GameManager.gameController;
+
+        currentTime = Time.time;
 
         //controller.AddHandler("TRIGGER", (string s) => HandleBallHit(s));
     }
@@ -175,6 +199,8 @@ public class BallController : MonoBehaviour {
     {
 		if (other.CompareTag ("Finish")) {
 			isFinished = true;
+            score++;
+            cumulativeScore++;
 		} else if (other.CompareTag ("Spider")) {
 			gameObject.transform.SetPositionAndRotation (GameObject.FindGameObjectWithTag ("Start").transform.position, gameObject.transform.rotation);
 			rb.velocity = new Vector3 (0, 0, 0);

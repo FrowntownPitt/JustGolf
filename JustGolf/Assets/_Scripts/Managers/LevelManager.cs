@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 
+    public Camera sceneCamera;
+
     public List<GameObject> PlayerStarts;
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Baking");
-        Debug.Log(UnityEditor.Lightmapping.Bake());
-        Debug.Log("Baking finished");
-
         GameManager.instance.PlacePlayers(PlayerStarts);
-        //LightMapping.Bake();
-	}
+        GameManager.instance.InitLevel();
+        DisableSceneCamera();
+    }
+
+    public void DisableSceneCamera()
+    {
+        sceneCamera.gameObject.SetActive(false);
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
