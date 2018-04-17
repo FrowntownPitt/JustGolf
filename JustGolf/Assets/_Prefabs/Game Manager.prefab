@@ -236,8 +236,10 @@ MonoBehaviour:
   - {fileID: 0}
   RemainingPlayers: []
   Levels:
-  - TestSpace
-  - Main
+  - MainMenu
+  - BasicHole
+  - CowSearch
+  - Horror
   currentLevel: 0
   controllerPort: COM5
   playerNotification: {fileID: 1529334383835756}
