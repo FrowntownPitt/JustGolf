@@ -149,6 +149,10 @@ public class GameManager : MonoBehaviour {
         //Application.LoadLevelAdditiveAsync(Levels[level]);
     }
 
+	public void RestartLevel(){
+		StartLevel (level);
+	}
+
     private void Start()
     {
         camera.gameObject.SetActive(false);

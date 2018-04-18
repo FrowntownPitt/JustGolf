@@ -8,7 +8,7 @@ public class DestroyPanel : MonoBehaviour {
     // "Game over" panel (reset player on level). Destroy if not player
 	void OnTriggerEnter(Collider other){
 		if (other.CompareTag ("Player")) {
-			Debug.Log ("Lose");
+			GameManager.instance.RestartLevel ();
 		} else {
 			Destroy(other.gameObject);
 		}
