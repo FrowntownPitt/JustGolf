@@ -5,23 +5,25 @@ using UnityEngine.UI;
 
 namespace Arduino
 {
+    // Interface container for handling USB communication requests (read/write)
     public class Communication : MonoBehaviour
     {
 
-        public string port = "COM5";
-        USB ArduinoHandler;
+        public string port = "COM5"; // What port to connect to
+        USB ArduinoHandler;         // USB device to handle 
 
         float prevTime;
 
-        public float pulse;
+        public float pulse; // How much time should be guaranteed between sends to the arduino
 
-        Coroutine listenerCoroutine;
-        Coroutine resetCoroutine;
+        Coroutine listenerCoroutine;    // "Singleton" listener
+        Coroutine resetCoroutine;       // "Singleton" reset handler
 
         bool isConnected = false;
 
-        public Dictionary<string, System.Action<string>> messageHandlers;
-
+        public Dictionary<string, System.Action<string>> messageHandlers; // All <string, callback> pairs to account for
+        
+        // Returns true if the USB communication is available and open
         public bool IsConnected()
         {
             if(ArduinoHandler != null)
@@ -36,6 +38,7 @@ namespace Arduino
             isConnected = false;
         }
 
+        // Add the <token, callback> pair
         public void AddHandler(string token, System.Action<string> handler)
         {
             Debug.Log("Added handler (" + token + ")");
@@ -48,6 +51,7 @@ namespace Arduino
             //TryConnect(port);
         }
 
+        // Attempt to connect to the port. Does nothing if already connected
         public bool TryConnect(string port)
         {
             if (isConnected)
@@ -60,11 +64,12 @@ namespace Arduino
 
             Debug.Log(isConnected);
             if(isConnected)
-                StartListener();
+                StartListener(); // When it connects, start listening for messages to trigger
 
             return isConnected;
         }
 
+        // Every <duration> seconds, stop the listener and start a new one for the same duration
         IEnumerator TriggerCheck()
         {
             while (true)
@@ -82,15 +87,16 @@ namespace Arduino
             //    resetCoroutine = StartCoroutine(HandleTrigger());
         }*/
 
+        // Generic message handler. Call the appropriate callback
         void MessageHandler(string message)
         {
             Debug.Log("Message: " + message);
             bool foundHandler = false;
-            foreach(string h in messageHandlers.Keys)
+            foreach(string h in messageHandlers.Keys) // For all applicable keys
             {
                 if (message.Contains(h))
                 {
-                    messageHandlers[h](message);
+                    messageHandlers[h](message); // Call the callback
                     foundHandler = true;
                 }
             }
@@ -98,6 +104,7 @@ namespace Arduino
             {
                 TriggerHandler(message);
             }*/
+            // Restart the listener
             if(!foundHandler)
             {
                 StopListener();
@@ -105,6 +112,7 @@ namespace Arduino
             }
         }
 
+        // Reset the golf mechanism
         public void TryReset()
         {
             ResetTrigger();
@@ -185,6 +193,7 @@ namespace Arduino
             yield return null;
         }*/
 
+        // Not able to read the message for some reason. Reset everything
         void ReadErrorHandler()
         {
             Debug.Log("Error!");
@@ -193,12 +202,14 @@ namespace Arduino
             StartListener();
         }
 
+        // Reset the golf mechanism
         void ResetTrigger()
         {
-            WriteToArduino("RESETTRIGGER", 1);
+            WriteToArduino("RESETTRIGGER", 1); // Send an immediate request to reset
             //WriteToArduino("RESETTRIGGER");
         }
 
+        // Stop the listener coroutine
         void StopListener()
         {
             if (listenerCoroutine != null)
@@ -207,24 +218,27 @@ namespace Arduino
             }
         }
 
+        // Start listening for messages, with a timeout period
         void StartListener(float time = float.PositiveInfinity)
         {
             if (ArduinoHandler != null)
             {
                 Debug.Log("Starting Arduino Listener");
-                System.Action<string> M = (string s) => this.MessageHandler(s);
-                System.Action f = () => ReadErrorHandler();
+                System.Action<string> M = (string s) => this.MessageHandler(s);  // Use the generic message handler
+                System.Action f = () => ReadErrorHandler(); // In case there's an error, call this
                 
                 listenerCoroutine = StartCoroutine(ArduinoHandler.AsynchronousReadFromArduino(
-                    M, f, time));
+                    M, f, time)); // Start listening
             } else
             {
                 //Debug.Log("Arduino handler null");
             }
         }
 
+        // Write the given message to the arduino. Will write immediately if priority is > 0
         public void WriteToArduino(string message, int priority = 0)
         {
+            // Only send on the pulse interval, or if it is important
             if (Time.time - prevTime > pulse || priority > 0)
             {
                 if (ArduinoHandler != null)
@@ -235,6 +249,7 @@ namespace Arduino
             }
         }
 
+        // Shut everything down cleanly
         void OnDisable()
         {
             WriteToArduino("RESETSTEP", 1);
