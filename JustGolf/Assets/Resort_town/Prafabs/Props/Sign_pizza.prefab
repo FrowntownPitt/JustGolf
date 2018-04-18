@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4674228600826484}
   - component: {fileID: 33924306025882092}
   - component: {fileID: 23254846185616992}
+  - component: {fileID: 64473000517347662}
   m_Layer: 0
   m_Name: Sign_pizza
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1644263206820230}
+  m_Mesh: {fileID: 4300000, guid: 66f837d0e5442f74391a0699f0730afa, type: 3}
+--- !u!64 &64473000517347662
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1644263206820230}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 66f837d0e5442f74391a0699f0730afa, type: 3}

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4220140984299742}
   - component: {fileID: 33012784147626424}
   - component: {fileID: 23699005693376966}
+  - component: {fileID: 64877613345705484}
   m_Layer: 0
   m_Name: Solar_panel
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1879145227299352}
+  m_Mesh: {fileID: 4300000, guid: 6022bd596ee4532458bcd8846be7f89e, type: 3}
+--- !u!64 &64877613345705484
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879145227299352}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 6022bd596ee4532458bcd8846be7f89e, type: 3}

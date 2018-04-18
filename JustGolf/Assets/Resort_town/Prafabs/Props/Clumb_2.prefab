@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4388911185839756}
   - component: {fileID: 33601811977046660}
   - component: {fileID: 23220987446543560}
+  - component: {fileID: 64541066718818938}
   m_Layer: 0
   m_Name: Clumb_2
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1619301024487970}
+  m_Mesh: {fileID: 4300000, guid: 559c6dc68667e3840b00bb105e63feb5, type: 3}
+--- !u!64 &64541066718818938
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1619301024487970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 559c6dc68667e3840b00bb105e63feb5, type: 3}

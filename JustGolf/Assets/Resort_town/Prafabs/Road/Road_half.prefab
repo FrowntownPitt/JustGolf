@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4000013441982424}
   - component: {fileID: 33000011088082060}
   - component: {fileID: 23000012010036342}
+  - component: {fileID: 64356940480813330}
   m_Layer: 0
   m_Name: Road_half
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012028387194}
+  m_Mesh: {fileID: 4300000, guid: 7a4f934cf93f7d447a17ef642dd77173, type: 3}
+--- !u!64 &64356940480813330
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012028387194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 7a4f934cf93f7d447a17ef642dd77173, type: 3}

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4176015293323002}
   - component: {fileID: 33454031264656898}
   - component: {fileID: 23938242480536384}
+  - component: {fileID: 64179444795802474}
   m_Layer: 0
   m_Name: Palm_4
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1488163133359698}
+  m_Mesh: {fileID: 4300000, guid: 39b4b862fec04b641a3cdbea012025af, type: 3}
+--- !u!64 &64179444795802474
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488163133359698}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 39b4b862fec04b641a3cdbea012025af, type: 3}

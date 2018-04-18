@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4747074674237080}
   - component: {fileID: 33495420478338478}
   - component: {fileID: 23013939383684248}
+  - component: {fileID: 64024879009006534}
   m_Layer: 0
   m_Name: Sidewalk_corner_4
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330549897849550}
+  m_Mesh: {fileID: 4300000, guid: a402d62f7d4acf64595786f321cc266a, type: 3}
+--- !u!64 &64024879009006534
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330549897849550}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: a402d62f7d4acf64595786f321cc266a, type: 3}

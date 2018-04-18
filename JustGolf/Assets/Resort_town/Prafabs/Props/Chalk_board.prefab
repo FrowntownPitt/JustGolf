@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4058685454491706}
   - component: {fileID: 33252939648424250}
   - component: {fileID: 23872111895684854}
+  - component: {fileID: 64785879665076898}
   m_Layer: 0
   m_Name: Chalk_board
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247721630435170}
+  m_Mesh: {fileID: 4300000, guid: aef1a4d6b11e6e14bb6da1bbd587047d, type: 3}
+--- !u!64 &64785879665076898
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247721630435170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: aef1a4d6b11e6e14bb6da1bbd587047d, type: 3}

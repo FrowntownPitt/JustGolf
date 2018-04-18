@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4941062456788870}
   - component: {fileID: 33720748055758280}
   - component: {fileID: 23091759825801128}
+  - component: {fileID: 64221235146310746}
   m_Layer: 0
   m_Name: Sign_hotel_2
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880780358922880}
+  m_Mesh: {fileID: 4300000, guid: e49ffb8350998804b8ae0f6e0c1e915d, type: 3}
+--- !u!64 &64221235146310746
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880780358922880}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: e49ffb8350998804b8ae0f6e0c1e915d, type: 3}

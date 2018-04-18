@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4176258359606666}
   - component: {fileID: 33719195193211736}
   - component: {fileID: 23669659299764314}
+  - component: {fileID: 64673792811260250}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041796090801264}
+  m_Mesh: {fileID: 4300000, guid: 26e6e84f6466a2a41bb84e9807f31da4, type: 3}
+--- !u!64 &64673792811260250
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1041796090801264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 26e6e84f6466a2a41bb84e9807f31da4, type: 3}

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4569534618317236}
   - component: {fileID: 33233298588696718}
   - component: {fileID: 23156655689118324}
+  - component: {fileID: 64372979772611154}
   m_Layer: 0
   m_Name: Antenna
   m_TagString: Untagged
@@ -81,4 +82,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824324304238780}
+  m_Mesh: {fileID: 4300000, guid: f64f19d387e0b804e94c2f114bcab6da, type: 3}
+--- !u!64 &64372979772611154
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1824324304238780}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: f64f19d387e0b804e94c2f114bcab6da, type: 3}
