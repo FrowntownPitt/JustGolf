@@ -9,14 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 4241a5ac4873c604d8601f6546db2488
   - enabled: 1
+    path: Assets/Scenes/TestSpace.unity
+    guid: 477acccd2ba0746f7884a084854fbf7a
+  - enabled: 1
     path: Assets/Scenes/BasicHole.unity
     guid: 9d96118d791333140a929a9c7a04006c
   - enabled: 1
     path: Assets/Scenes/CowSearch.unity
     guid: aee56ef7f73d5b340ad851a110ef02e4
   - enabled: 1
+    path: Assets/Scenes/RTS.unity
+    guid: f610b0f46ea214f2c9d9c873ba0907ec
+  - enabled: 1
     path: Assets/Scenes/Horror.unity
     guid: 7a6a23bd7a38f8e42bdcf6de78b1f98e
-  - enabled: 0
-    path: Assets/Scenes/TestSpace.unity
-    guid: 477acccd2ba0746f7884a084854fbf7a

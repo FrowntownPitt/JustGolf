@@ -237,10 +237,11 @@ MonoBehaviour:
   RemainingPlayers: []
   Levels:
   - MainMenu
+  - TestSpace
   - BasicHole
   - CowSearch
+  - RTS
   - Horror
-  currentLevel: 0
   controllerPort: COM5
   playerNotification: {fileID: 1529334383835756}
   playerText: {fileID: 114857736966979054}
@@ -350,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: COM5
-  pulse: 0
+  pulse: 0.05
 --- !u!114 &114933960932430676
 MonoBehaviour:
   m_ObjectHideFlags: 1
