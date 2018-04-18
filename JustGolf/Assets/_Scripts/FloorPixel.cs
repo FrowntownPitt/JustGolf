@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// "Destructible" game elements, tile drops when rolled over
 public class FloorPixel : MonoBehaviour {
 	public Material red;
 	Rigidbody rb;
@@ -22,14 +23,15 @@ public class FloorPixel : MonoBehaviour {
 			if (!hit) {
 				hit = true;
 				rend.material = red;
-				pHit = other.gameObject.transform.parent.name;
+				pHit = other.gameObject.transform.root.name;
 				Debug.Log (pHit);
 			}
 		}
 	}
 
 	void OnTriggerExit(Collider other){
-		if (other.gameObject.transform.parent.name.Equals(pHit)) {
+        // When the same initial player leaves this tile, drop it
+		if (other.gameObject.transform.root.name.Equals(pHit)) {
 			Debug.Log ("Fall!");
 			rb.useGravity = true;
 			rb.isKinematic = false;

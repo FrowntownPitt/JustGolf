@@ -8,6 +8,7 @@ public class HorrorDirector : MonoBehaviour {
 	GameObject[] spiderSkins;
 	int k = 0;
 
+    // When the player reaches a trigger, release the spiders
 	void OnTriggerEnter(Collider other){
 		if(!started){
 			
@@ -29,6 +30,7 @@ public class HorrorDirector : MonoBehaviour {
 		spiderSkins = GameObject.FindGameObjectsWithTag ("SpiderSkin");
 	}
 
+    // Do a random animation on each spider
 	void Update(){
 		k++;
 		if (k > 100) {

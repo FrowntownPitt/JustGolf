@@ -21,6 +21,7 @@ namespace Arduino
 
         WaitForSeconds waitForSeconds;
 
+        // Open the stream
         public void Open()
         {
             stream = new SerialPort(port, baudrate);
@@ -45,6 +46,7 @@ namespace Arduino
             }
         }
 
+        // Synchronous read from arduino (not used)
         public string ReadFromArduino(int timeout = 0)
         {
             stream.ReadTimeout = timeout;
@@ -59,6 +61,7 @@ namespace Arduino
             }
         }
 
+        // Async read from arduino for timeout time.
         public IEnumerator AsynchronousReadFromArduino(Action<string> callback, Action fail = null, float timeout = float.PositiveInfinity)
         {
             DateTime initialTime = DateTime.Now;
@@ -82,7 +85,7 @@ namespace Arduino
                 if (dataString != null)
                 {
                     Debug.Log("Data string not null!");
-                    callback(dataString);
+                    callback(dataString); // This is a good message!
                     yield return null;
                 }
                 else
@@ -92,12 +95,12 @@ namespace Arduino
 
                 nowTime = DateTime.Now;
                 diff = nowTime - initialTime;
-            } while (diff.Milliseconds < timeout);
+            } while (diff.Milliseconds < timeout); // Keep going until time out
 
             if (fail != null)
             {
                 Debug.Log("Fail!");
-                fail();
+                fail(); // It was not able to read anything before timing out
             }
             yield return null;
         }

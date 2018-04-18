@@ -29,12 +29,6 @@ public class MainMenu : MonoBehaviour {
         }
 	}
 
-    IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(5f);
-        StartGame();
-    }
-
     //
     void StartGame()
     {
